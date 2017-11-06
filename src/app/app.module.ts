@@ -3,6 +3,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule, Router } from '@angular/router'
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
 import {DropdownModule} from "ng2-dropdown";
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing, appRouterProviders } from './app.routing';
@@ -35,7 +36,8 @@ import { StatusComponent } from './status/status.component';
     routing,
     HttpModule,
     FormsModule,
-    DropdownModule
+    DropdownModule,
+    BootstrapModalModule
   ],
   providers: [ appRouterProviders,
         [{provide: APP_BASE_HREF, useValue: '/'}],

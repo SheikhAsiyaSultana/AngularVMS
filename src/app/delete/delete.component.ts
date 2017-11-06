@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
+import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 
 @Component({
   selector: 'app-delete',
@@ -23,6 +24,7 @@ export class DeleteComponent implements OnInit {
     this.http.delete('http://localhost:8080/vendor/app/byName', options)
            .subscribe(successCode => {
             this.statusCode = successCode.status;
+            console.log(this.statusCode);
        },
        errorCode => this.statusCode = errorCode);
         df.reset(); 

@@ -18,14 +18,14 @@ export class ViewComponent implements OnInit {
   statusCode: number;
   
   // constructor
-  constructor(private _viewService: ViewService) { 
+  constructor(private viewService: ViewService) { 
    this.vendors=[];
     }
 
   // on-init
   ngOnInit() {
     // save _subscription
-    this._subscription = this._viewService.getAllVendors()
+    this._subscription = this.viewService.getAllVendors()
       .subscribe(
       data => this.vendors = data,
       errorCode =>  this.statusCode = errorCode);
