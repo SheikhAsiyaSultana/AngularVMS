@@ -1,0 +1,72 @@
+<div class="container" class="formDesign">
+<form #sf="ngForm"  (ngSubmit)="searchByCategory(sf)"  class="form-inline">
+<div class="form-group">
+	  <label  class="control-label col-sm-4" for="category">Vendor Category: </label>
+	  <div class="col-sm-4">
+	  <input required  ngModel name="category" id="category" #category="ngModel"  type="text" class="form-control" placeholder="Enter vendor category" >
+	  <div class="alert alert-danger" *ngIf="category.touched && !category.valid" ng-init="refresh()">Vendor category is required.</div>
+	  </div>
+</div>
+	<div class="form-group">        
+      <div class=" col-sm-10">
+        <button type="submit" class="btn btn-primary" [disabled]="!sf.valid" >Search</button>
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class=" col-sm-10">
+        <button type="reset" class="btn btn-primary" (click)="refresh()" >Refresh</button>
+      </div>
+    </div>
+</form>
+</div>
+ <div *ngIf="vendor.length > 0;then clist else nlist" ></div>
+<ng-template #clist>
+     <h2 class="h2-style">VENDORS DETAILS</h2>
+       <div class="table-design">
+          <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Vendor Id</th>
+        <th>Vendor Name</th>
+        <th>Vendor Category</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Resource Count</th>
+        <th>Bill Rate</th>
+        <th>Status</th>
+        <th>Address</th>
+        <th>Contact Number 1</th>
+        <th>Contact Number 2</th>
+        <th>Remarks</th>
+        <th>Ratings</th>
+    </tr>
+    <tbody *ngFor=" let v of temp">
+      <tr>
+       <td>{{v.id}}</td>
+        <td>{{v.name}}</td>
+        <td>{{v.category}}</td>
+        <td>{{v.startDate}}</td>
+        <td>{{v.endDate}}</td>
+        <td>{{v.resourceCount}}</td>
+        <td>{{v.billRate}}</td>
+        <td>{{v.status}}</td>
+        <td>{{v.address}}</td>
+        <td>{{v.number1}}</td>
+        <td>{{v.number2}}</td>
+        <td>{{v.remarks}}</td>
+        <td>{{v.ratings}}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  </ng-template>
+
+  <ng-template #nlist>
+    <h2 class="h2-style">No Vendors Found!!!!!</h2>
+  </ng-template>
+  
+
+
+            
+
+

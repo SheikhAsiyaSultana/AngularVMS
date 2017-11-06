@@ -1,0 +1,43 @@
+.main-container{
+    width:100%;
+    height: 100%;
+    background-color: #cccccc;
+}
+
+.logo-container{
+    width: 100%;
+    height: 20%;
+    background-color: white;
+    display: inline-block;
+}
+
+.content-container{
+    width: 100%;
+    height: 80%;
+}
+
+.logo-image{
+    display: inline-block;
+    float: left;
+}
+.title-container{
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.navbar-prop{
+    margin-bottom: 0px;
+    background-color:#bfbfbf;
+    color: white;
+
+}
+
+.a1{
+color: white;
+text-decoration: beige;
+font-size: 20px;
+}
+
+.title{
+ margin-right:50px;
+}

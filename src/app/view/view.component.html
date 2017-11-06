@@ -1,0 +1,51 @@
+
+
+<div class="container-fluid" *ngIf="vendors.length > 0;then list else nolist"></div>
+<ng-template #list>
+     <h2 class="h2-style">VENDORS DETAILS</h2>
+       <div class="table-design">
+          <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Vendor Id</th>
+        <th>Vendor Name</th>
+        <th>Vendor Category</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Resource Count</th>
+        <th>Bill Rate</th>
+        <th>Status</th>
+        <th>Address</th>
+        <th>Contact Number 1</th>
+        <th>Contact Number 2</th>
+        <th>Remarks</th>
+        <th>Ratings</th>
+      </tr>
+    </thead>
+    <tbody *ngFor=" let vendor of vendors">
+    
+      <tr>
+        <td>{{vendor.id}}</td>
+        <td>{{vendor.name}}</td>
+        <td>{{vendor.category}}</td>
+        <td>{{vendor.startDate}}</td>
+        <td>{{vendor.endDate}}</td>
+        <td>{{vendor.resourceCount}}</td>
+        <td>{{vendor.billRate}}</td>
+        <td>{{vendor.status}}</td>
+        <td>{{vendor.address}}</td>
+        <td>{{vendor.number1}}</td>
+        <td>{{vendor.number2}}</td>
+        <td>{{vendor.remarks}}</td>
+        <td>{{vendor.ratings}}</td>
+      </tr>
+     
+    </tbody>
+  </table>
+  </div>
+  </ng-template>
+  <ng-template #nolist>
+    <h2 class="h2-style">No Details Found!!!!!!</h2>
+  </ng-template>
+
+         

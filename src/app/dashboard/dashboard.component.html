@@ -1,0 +1,32 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<div class="main-container">
+   <div class="logo-container">
+        <span class="logo-image">
+            <img src="assets/img/accionlabs.jpg" alt="app logo" class="logo">
+        </span>
+        <span class="title-container">
+            <p class="h1 title">VENDOR MANAGEMENT SYSTEM</p>
+        </span>
+   </div>
+   <div class="content-container">
+     <nav class="navbar navbar-default navbar-prop">
+      <div class="container-fluid nav-div1">
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li routerLinkActive="active current"><a [routerLink]="['/create']" class="navbar-brand a1">REGISTER</a></li>
+           <li routerLinkActive="active current"><a [routerLink]="['/update']" class="navbar-brand a1">UPDATE</a></li>
+          <li routerLinkActive="active current"> <a [routerLink]="['/delete']" class="navbar-brand a1">DELETE</a></li>
+          <li routerLinkActive="active current" class="dropdown" [dropdownToggle]="true" dropdown><a [routerLink]="['/search']" class="navbar-brand a1" dropdown-open>SEARCH <span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+          <li><a [routerLink]="['/byCategory']" >BY CATEGORY</a></li>
+          <li><a [routerLink]="['/byStatus']" >BY STATUS</a></li>
+          </ul>
+         </li>
+        </ul>
+     </div>
+    </div> 
+   </nav>       
+  </div>
+ </div>
+
+
