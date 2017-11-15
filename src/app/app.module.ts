@@ -7,6 +7,7 @@ import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing, appRouterProviders } from './app.routing';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -37,7 +38,8 @@ import { StatusComponent } from './status/status.component';
     HttpModule,
     FormsModule,
     DropdownModule,
-    BootstrapModalModule
+    BootstrapModalModule,
+    Ng2AutoCompleteModule
   ],
   providers: [ appRouterProviders,
         [{provide: APP_BASE_HREF, useValue: '/'}],

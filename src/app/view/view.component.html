@@ -1,7 +1,27 @@
+<div class="container" class="formDesign">
+<form #sf="ngForm"  (ngSubmit)="searchByName(sf)"  class="form-inline">
+<div class="form-group">
+    <label  class="control-label col-sm-4" for="category">Vendor Name: </label>
+    <div class="col-sm-4">
+    <input required  ngModel name="name" id="name" auto-complete re-focus-after-select property #name="ngModel" [source]="vendorName" type="text" class="form-control" placeholder="Enter vendor name" >
+    <div class="alert alert-danger" *ngIf="name.touched && !name.valid" ng-init="refresh()">Vendor name is required.</div>
+    </div>
+</div>
+  <div class="form-group">        
+      <div class=" col-sm-10">
+        <button type="submit" class="btn btn-primary" [disabled]="!sf.valid" >Search</button>
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class=" col-sm-10">
+        <button type="reset" class="btn btn-primary" (click)="refresh()" >Refresh</button>
+      </div>
+    </div>
+</form>
+</div>
 
-
-<div class="container-fluid" *ngIf="vendors.length > 0;then list else nolist"></div>
-<ng-template #list>
+ <div *ngIf=" vendor != null ;then vlist else nlist"></div>
+ <ng-template #vlist>
      <h2 class="h2-style">VENDORS DETAILS</h2>
        <div class="table-design">
           <table class="table table-bordered">
@@ -10,42 +30,32 @@
         <th>Vendor Id</th>
         <th>Vendor Name</th>
         <th>Vendor Category</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Resource Count</th>
-        <th>Bill Rate</th>
-        <th>Status</th>
-        <th>Address</th>
-        <th>Contact Number 1</th>
-        <th>Contact Number 2</th>
-        <th>Remarks</th>
-        <th>Ratings</th>
-      </tr>
-    </thead>
-    <tbody *ngFor=" let vendor of vendors">
-    
+     </tr>
+     </thead>
+    <tbody>
       <tr>
-        <td>{{vendor.id}}</td>
+       <td>{{vendor.id}}</td>
         <td>{{vendor.name}}</td>
         <td>{{vendor.category}}</td>
-        <td>{{vendor.startDate}}</td>
-        <td>{{vendor.endDate}}</td>
-        <td>{{vendor.resourceCount}}</td>
-        <td>{{vendor.billRate}}</td>
-        <td>{{vendor.status}}</td>
-        <td>{{vendor.address}}</td>
-        <td>{{vendor.number1}}</td>
-        <td>{{vendor.number2}}</td>
-        <td>{{vendor.remarks}}</td>
-        <td>{{vendor.ratings}}</td>
       </tr>
-     
     </tbody>
   </table>
   </div>
   </ng-template>
-  <ng-template #nolist>
-    <h2 class="h2-style">No Details Found!!!!!!</h2>
+
+  
+    <ng-template #nlist>
+    <h2 class="h2-style">No Vendors Found!!!!!</h2>
   </ng-template>
 
-         
+  
+  
+  
+
+  
+  
+
+
+            
+
+

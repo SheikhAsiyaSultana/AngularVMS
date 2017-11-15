@@ -16,11 +16,23 @@ import { Vendor } from '../vendor';
 })
 export class CreateComponent implements OnInit {
 
-  constructor(private http: Http) { }
+  category:string[];
+  selectedCategory:string="Others";
+  constructor(private http: Http) {
+    this.category=["Food","General","HR","IT","Others"];
+   }
 
   ngOnInit() {
   }
+
+   checkCategory(f){
+     if (f.value.category=="HR")
+       return false;
+      else
+       return true; 
+   }
    registerVendor(f){
+   debugger;
         let cpHeaders = new Headers({
             'Content-Type': 'application/json'
         });
@@ -30,18 +42,19 @@ export class CreateComponent implements OnInit {
         //Creating new Vendor object by using name field(ngModel)
         let name = f.value.name;
         let category=f.value.category;
+        let number=f.value.number1;
+        let emailId=f.value.email;
         let startDate= f.value.startDate;
         let endDate= f.value.endDate;
         let resourceCount=f.value.resourceCount;
-        let billRate=f.value.billRate;
         let status=f.value.status;
-        let address=f.value.address;
-        let number1=f.value.number1;
-        let number2=f.value.number2;
-        let remarks=f.value.remarks;
-        let ratings=f.value.ratings;
+        let address1=f.value.address1;
+        let address2=f.value.address2;
+        let files=f.value.file;     
+        let comment=f.value.comment;
+      
 
-        let vendor= new Vendor(null, name, category,startDate,endDate,resourceCount,billRate,status,address,number1,number2,remarks,ratings);    
+        let vendor= new Vendor(null, name, category,emailId,startDate,endDate,resourceCount,status,address1,number,address2,files,comment);    
         
         this.http.post('http://localhost:8080/vendor/add', JSON.stringify(vendor), options)
             .subscribe(response => {
@@ -50,5 +63,6 @@ export class CreateComponent implements OnInit {
             });
             f.reset();
     }
+
 
 }

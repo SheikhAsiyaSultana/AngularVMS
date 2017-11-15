@@ -32,18 +32,18 @@ constructor(private http: Http) { }
         let id=uf.value.id;
         let name = uf.value.name;
         let category=uf.value.category;
+        let number=uf.value.number1;
         let startDate= uf.value.startDate;
         let endDate= uf.value.endDate;
         let resourceCount=uf.value.resourceCount;
-        let billRate=uf.value.billRate;
+        let emailId=uf.value.email;
         let status=uf.value.status;
-        let address=uf.value.address;
-        let number1=uf.value.number1;
-        let number2=uf.value.number2;
-        let remarks=uf.value.remarks;
-        let ratings=uf.value.ratings;
+        let address1=uf.value.address1;
+        let address2=uf.value.address2;
+        let files=uf.value.file;     
+        let comment=uf.value.comment;
 
-        let vendor= new Vendor(id, name, category,startDate,endDate,resourceCount,billRate,status,address,number1,number2,remarks,ratings);    
+        let vendor= new Vendor(null, name, category,emailId,startDate,endDate,resourceCount,status,address1,number,address2,files,comment);     
         
         this.http.put('http://localhost:8080/vendor/app', JSON.stringify(vendor), options)
             .subscribe(response => {
