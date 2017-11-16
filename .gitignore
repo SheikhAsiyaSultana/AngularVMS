@@ -40,3 +40,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+
+.git
+**/node_modules
+**/.git
+
