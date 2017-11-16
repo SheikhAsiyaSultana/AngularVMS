@@ -80,11 +80,7 @@
 	<div class="form-group">
 	  <label class="control-label col-sm-2" for="resourceCount">Resource Count: </label>
 	  <div class="col-sm-4">
-	  <input pattern= "[0-9]*" ngModel name="resourceCount" id="resourceCount" #rc="ngModel"  type="numeric" class="form-control" placeholder="Enter resource count"  [disabled]="checkCategory(f)" >
-	  <div class="alert alert-danger" *ngIf="rc.touched && !rc.valid">
-	  	<div *ngIf="rc.errors.required">Resource count is required.</div>
-	  	<div *ngIf="rc.errors.pattern">Resource count should be of numeric characters only.</div>
-	  </div>
+	  <input pattern= "[0-9]*" ngModel name="resourceCount" id="resourceCount" #rc="ngModel"  type="numeric" class="form-control" placeholder="Enter resource count"  [disabled]="checkCategory(f)" >  
 	  </div>
 	</div>
 

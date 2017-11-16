@@ -1,74 +1,55 @@
 import { Component, OnInit} from '@angular/core';
 import { Http,Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Vendor } from '../vendor';
+import { Observable } from 'rxjs';
+import { ViewService } from './view.service';
 
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
-  styleUrls: ['./view.component.css']
+  styleUrls: ['./view.component.css'],
+   providers: [ViewService]
 })
 export class ViewComponent implements OnInit {
    public vendor:Vendor;
-  errMsg:boolean;
-  public vendorName:any[] = [];
-   arrayOfStrings:any[];
+   public vendorName:Array<string> = [];
+   public name:string;
    public allVendors:Vendor[];
-   constructor(private http:Http) { 
-       
+
+   constructor(private viewService:ViewService) { 
+         this.name='';
        }
     
+//Data Consumption using Observable
   ngOnInit() {
-    this.getAllVendors();
-  }
-  getAllVendors(){
-     this.http.get('http://localhost:8080/vendor/allVendors')
-   .subscribe( 
-       (data) => {
-         if(data || data.json() != null){
-          this.allVendors=data.json();
-
-          for(let vname of this.allVendors){
-            this.vendorName.push(vname.name); 
+      
+      this.viewService.getAllVendors()
+      .subscribe( 
+       (res) => {
+            this.allVendors=res;
+            for(let vname of this.allVendors){
+            this.vendorName.push(vname.name); //Pushing all available vendor names into an array of strings
             console.log(this.vendorName);
           }
-
-
-
-          //this.vendorName = this.allVendors.name;
-          //console.log(this.vendorName);
-          }
-          else{
-          console.log("No Vendors Found!!!!!!");
-          }
-   },
+         },
       (err) => console.log(err)
     );
   }
 
   searchByName(sf){
-  let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-   let cpParams = new URLSearchParams();
-   cpParams.set('name', sf.value.name);
-   let options = new RequestOptions({ headers: cpHeaders,params: cpParams});  
-  this.http.get('http://localhost:8080/vendor/app/name',options)
+   this.vendor=null;
+   let name=sf.value.name;
+   this.viewService.getVendorByName(name)
    .subscribe( 
-       (data) => {
-         if(data || data.json() != null){
-          this.vendor=data.json();
-          //this.vendorName = this.vendor.name;
-          //console.log(this.vendorName);
+       (res) => {
+          this.vendor=res;
           console.log(this.vendor);
-          }
-          else{
-          console.log("No Vendors Found!!!!!!");
-          }
-   },
+          },
       (err) => console.log(err)
     );
-    sf.reset();   
+    sf.reset(); 
   }
 
- 
 }
 

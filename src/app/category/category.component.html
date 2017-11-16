@@ -19,7 +19,7 @@
     </div>
 </form>
 </div>
- <div *ngIf="vendor.length > 0;then clist else nlist" ></div>
+ <div *ngIf=" vendors.length > 0;then clist else nlist" ></div>
 <ng-template #clist>
      <h2 class="h2-style">VENDORS DETAILS</h2>
        <div class="table-design">
@@ -29,18 +29,18 @@
         <th>Vendor Id</th>
         <th>Vendor Name</th>
         <th>Vendor Category</th>
-        <th>Start Date</th>
-        <th>End Date</th>
+        <th class="cellDesign">Start Date</th>
+        <th class="cellDesign">End Date</th>
         <th>Resource Count</th>
-        <th>Bill Rate</th>
         <th>Status</th>
-        <th>Address</th>
-        <th>Contact Number 1</th>
-        <th>Contact Number 2</th>
-        <th>Remarks</th>
-        <th>Ratings</th>
+        <th>Address Line 1</th>
+        <th>Address Line 2</th>
+        <th>Contact Number</th>
+        <th>Email Id</th>
+        <th>Files</th>
+        <th>Comment</th>    
     </tr>
-    <tbody *ngFor=" let v of temp">
+    <tbody *ngFor=" let v of vendors">
       <tr>
        <td>{{v.id}}</td>
         <td>{{v.name}}</td>
@@ -48,13 +48,13 @@
         <td>{{v.startDate}}</td>
         <td>{{v.endDate}}</td>
         <td>{{v.resourceCount}}</td>
-        <td>{{v.billRate}}</td>
         <td>{{v.status}}</td>
-        <td>{{v.address}}</td>
-        <td>{{v.number1}}</td>
-        <td>{{v.number2}}</td>
-        <td>{{v.remarks}}</td>
-        <td>{{v.ratings}}</td>
+        <td>{{v.address1}}</td>
+        <td>{{v.address2}}</td>
+        <td>{{v.number}}</td>
+        <td>{{v.emailId}}</td>
+        <td>{{v.files}}</td>
+        <td>{{v.comment}}</td>
       </tr>
     </tbody>
   </table>

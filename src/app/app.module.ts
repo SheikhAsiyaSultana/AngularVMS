@@ -43,7 +43,7 @@ import { StatusComponent } from './status/status.component';
   ],
   providers: [ appRouterProviders,
         [{provide: APP_BASE_HREF, useValue: '/'}],
-        [{provide: LocationStrategy, useClass: HashLocationStrategy}]
+        [{provide: LocationStrategy, useClass: HashLocationStrategy}] //Adds # to URL
   ],
   bootstrap: [AppComponent]
 })

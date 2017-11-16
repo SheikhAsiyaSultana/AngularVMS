@@ -3,8 +3,8 @@
 <div class="form-group">
     <label  class="control-label col-sm-4" for="category">Vendor Name: </label>
     <div class="col-sm-4">
-    <input required  ngModel name="name" id="name" auto-complete re-focus-after-select property #name="ngModel" [source]="vendorName" type="text" class="form-control" placeholder="Enter vendor name" >
-    <div class="alert alert-danger" *ngIf="name.touched && !name.valid" ng-init="refresh()">Vendor name is required.</div>
+    <input required  ngModel name="name" id="name" ng2-auto-complete [(ngModel)]="name" #n="ngModel" [source]="vendorName" type="text" class="form-control" placeholder="Enter vendor name" >
+    <div class="alert alert-danger" *ngIf="n.touched && !n.valid" >Vendor name is required.</div>
     </div>
 </div>
   <div class="form-group">        

@@ -9,12 +9,11 @@ import { Vendor } from '../vendor';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-public vendor:Vendor[];
-public temp:Vendor[];
+
+public vendors:Vendor[];
 
   constructor(private http:Http) { 
-       this.vendor=[];
-       this.temp=[];
+       this.vendors=[];
        }
     
   ngOnInit() {
@@ -28,8 +27,7 @@ public temp:Vendor[];
    .subscribe( 
        (data) => {
          if(data || data.json() !="undefined" ){
-          this.vendor=data.json();
-          this.temp=this.vendor;
+          this.vendors=data.json();
           console.log(data.json());
           }
           else{
