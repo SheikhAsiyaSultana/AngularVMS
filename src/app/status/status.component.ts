@@ -1,44 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Http,Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Vendor } from '../vendor';
+import { StatusService } from './status.service';
 
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
-  styleUrls: ['./status.component.css']
+  styleUrls: ['./status.component.css'],
+  providers: [StatusService]//Providers should be there to access services
 })
-export class StatusComponent implements OnInit {
-public vendor:Vendor[];
-showData:boolean;
 
-  constructor(private http:Http) {
+export class StatusComponent implements OnInit {
+
+public vendor:Vendor[];
+
+  constructor(private statusService:StatusService) {
         this.vendor=[];
       }
 
   ngOnInit() {
-     this.showData=false;
   }
-  searchByStatus(status:string){
-  	
-  let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-   let cpParams = new URLSearchParams();
-   cpParams.set('status', status);
-   let options = new RequestOptions({ headers: cpHeaders,params: cpParams});	
-  this.http.get('http://localhost:8080/vendor/app/status',options)
+
+  searchByStatus(stf){
+  this.vendor=[];
+  let status=stf.value.status;
+  this.statusService.searchByStatus(status)
    .subscribe( data => {
-    if(data || data.json() !="undefined" ){
-          this.vendor=data.json();
-          console.log(data.json());
-          }
-          else{
-              console.log("Vendors data not found!!!!!!! ");
-          }
-          this.showData=true;
-          //window.location.reload();
-   },
-   err =>{
-   console.log("Data Not Found!!!!!");
-   });
+          this.vendor=data;
+          console.log(this.vendor);
+          },     
+      (err) => console.log(err));
+      stf.reset();
   }
 
 }

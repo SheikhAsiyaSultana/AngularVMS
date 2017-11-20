@@ -1,15 +1,14 @@
 <div class="container" class="formDesign">
 <form #sf="ngForm"  (ngSubmit)="searchByName(sf)"  class="form-inline">
 <div class="form-group">
-    <label  class="control-label col-sm-4" for="category">Vendor Name: </label>
-    <div class="col-sm-4">
-    <input required  ngModel name="name" id="name" ng2-auto-complete [(ngModel)]="name" #n="ngModel" [source]="vendorName" type="text" class="form-control" placeholder="Enter vendor name" >
+    <div class="col-sm-20">
+    <input required  ngModel name="name" id="name" ng2-auto-complete [(ngModel)]="name" #n="ngModel" [source]="vendorName" type="text" class="form-control" placeholder="Search" class="searchDesign">
     <div class="alert alert-danger" *ngIf="n.touched && !n.valid" >Vendor name is required.</div>
     </div>
 </div>
   <div class="form-group">        
       <div class=" col-sm-10">
-        <button type="submit" class="btn btn-primary" [disabled]="!sf.valid" >Search</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!sf.valid" (click)="viewModal.open()">Search</button>
       </div>
     </div>
     <div class="form-group">        
@@ -19,35 +18,237 @@
     </div>
 </form>
 </div>
+<modal #viewModal>
+        <modal-header>
+          <h2 class="h2-style">VENDOR DETAILS</h2>
+        </modal-header>
+        <modal-content>
+        <div *ngIf=" vendor != null ;then vlist else nlist"></div>
+           <ng-template #vlist>
+            <div class="table-design">
+             <table class="table table-bordered">
+                <tr>
+                     <th>Vendor Id</th>
+                       <td>{{vendor.id}}</td>
+                </tr> 
+                 <tr>
+                     <th>Vendor Name</th>
+                      <td>{{vendor.name}}</td>
+                </tr>  
+                 <tr>
+                     <th>Vendor Category</th>
+                     <td>{{vendor.category}}</td>
+                </tr>
+                 <tr>
+                     <th>Start Date</th>
+                     <td>{{vendor.startDate}}</td>
+                </tr>
+                <tr>
+                     <th>End Date</th>
+                     <td>{{vendor.endDate}}</td>
+                </tr>
+                <tr>
+                     <th>Resource Count</th>
+                     <td>{{vendor.resourceCount}}</td>
+                </tr>
+                <tr>
+                     <th>Status</th>
+                     <td>{{vendor.status}}</td>
+                </tr>
+                <tr>
+                     <th>Email Id</th>
+                     <td>{{vendor.emailId}}</td>
+                </tr>
+                <tr>
+                     <th>Contact Number</th>
+                     <td>{{vendor.number}}</td>
+                </tr>
+                <tr>
+                     <th>Address Line 1</th>
+                     <td>{{vendor.address1}}</td>
+                </tr>
+                <tr>
+                     <th>Address Line 2</th>
+                     <td>{{vendor.address2}}</td>
+                </tr>
+                <tr>
+                     <th>Files</th>
+                     <td>{{vendor.files}}</td>
+                </tr>
+                <tr>
+                     <th>Comment</th>
+                     <td>{{vendor.comment}}</td>
+                </tr>
+             </table>
+             </div>
+             </ng-template>
+            <ng-template #nlist>
+            <h2 class="h2-style">No Such Vendor Found!!!!!</h2>
+            </ng-template>
 
- <div *ngIf=" vendor != null ;then vlist else nlist"></div>
- <ng-template #vlist>
-     <h2 class="h2-style">VENDORS DETAILS</h2>
-       <div class="table-design">
-          <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Vendor Id</th>
-        <th>Vendor Name</th>
-        <th>Vendor Category</th>
-     </tr>
-     </thead>
-    <tbody>
-      <tr>
-       <td>{{vendor.id}}</td>
-        <td>{{vendor.name}}</td>
-        <td>{{vendor.category}}</td>
-      </tr>
-    </tbody>
-  </table>
+        </modal-content>
+        <modal-footer>
+            <button class="btn btn-primary" (click)="editModal.open()">Edit</button>
+            <button class="btn btn-primary" (click)="deleteModal.open()">Delete</button>   
+        </modal-footer>
+  </modal>
+<modal #editModal (onOpen)="viewModal.close()">
+        <modal-header>
+          <h2 class="h2-style">EDIT VENDOR DETAILS</h2>
+        </modal-header>
+        <modal-content>
+              <form #uf="ngForm" (ngSubmit)="updateVendor(uf)" class="form-horizontal">
+               <div class="form-group">
+              <label class="control-label col-sm-4" for="name">Vendor Name : </label>
+                  <div class="col-sm-4">
+                  <input  required pattern= "[a-z * A-Z]*" ngModel name="name" id="name" #n="ngModel" type="text" class="form-control" placeholder="Enter vendor name" [(ngModel)]="vName">
+                   <div class="alert alert-danger" *ngIf="n.touched && !n.valid">
+                  <div *ngIf="n.errors.required">Vendor name is required.</div>
+                  <div *ngIf="n.errors.pattern">Vendor name should be of alphabetical characters only.</div>
+    </div>
+    </div>
   </div>
-  </ng-template>
 
+     <div class="form-group">
+      <label class="control-label col-sm-4"  for="category">Vendor Category : </label>
+    <div class="col-sm-8">
+    <select [(ngModel)]="vCategory" name="category" class="selectStyle"> <option *ngFor=" let c of category">{{c}}</option> </select>
+    <div class="alert alert-danger" *ngIf="category.touched && !category.valid">
+      <div *ngIf="category.errors.required">Vendor category is required.</div>
+    </div>
+    </div>
+    </div>
+
+  <div class="form-group">
+    <label  class="control-label col-sm-4" for="number1">Contact Number : </label>
+    <div class="col-sm-4">
+    <input required   minlength="10" ngModel name="number1" id="number1" #n1="ngModel"  type="text" class="form-control" placeholder="Enter contact number" [(ngModel)]="cNumber">
+    <div class="alert alert-danger" *ngIf="n1.touched && !n1.valid">
+    <div *ngIf="n1.errors.required">Contact number is required</div>
+    <div *ngIf="n1.errors.minlength">Contact number should be of minimum {{n1.errors.minlength.requiredLength}} characters</div>
+    </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label  class="control-label col-sm-4" for="email">Email Id: </label>
+    <div class="col-sm-4">
+    <input required  pattern="^[a-zA-Z0-9]*@[a-zA-Z]*.com" ngModel name="email" id="email" #email="ngModel"  type="text" class="form-control" placeholder="Enter email id" [(ngModel)]="emailId">
+    <div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+      <div *ngIf="email.errors.required">Email id is required.</div>
+      <div *ngIf="email.errors.pattern">Email id doesn't match the pattern.</div>
+    </div>
+    </div>
+    </div>
+
+  <div class="form-group">
+    <label  class="control-label col-sm-4" for="address">Address Line 1: </label>
+    <div class="col-sm-4">
+    <input required ngModel name="address1" id="address1" #address1="ngModel"  type="text" class="form-control" placeholder="Enter address" [(ngModel)]="add1">
+    <div class="alert alert-danger" *ngIf="address1.touched && !address1.valid">Address is required.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label  class="control-label col-sm-4" for="address">Address Line 2: </label>
+    <div class="col-sm-4">
+    <input ngModel name="address2" id="address2" #address2="ngModel"  type="text" class="form-control" placeholder="Enter address" [(ngModel)]="add2">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-4"  for="startDate">Start Date: </label>
+     <div class="col-sm-4">
+    <input required ngModel name="startDate" id="startDate" #sd="ngModel"  type="date" class="form-control" placeholder="Enter start date " [(ngModel)]="sdate">
+    <div class="alert alert-danger" *ngIf="sd.touched && !sd.valid">
+      <div *ngIf="sd.errors.required">Start date is required.</div>
+    </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label  class="control-label col-sm-4" for="endDate">End Date: </label>
+    <div class="col-sm-4">
+    <input ngModel name="endDate" id="endDate" #ed="ngModel"  type="date" class="form-control" placeholder="Enter end date" [(ngModel)]="edate" >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-4" for="resourceCount">Resource Count: </label>
+    <div class="col-sm-4">
+    <input pattern= "[0-9]*" ngModel name="resourceCount" id="resourceCount" #rc="ngModel"  type="numeric" class="form-control" placeholder="Enter resource count"  [disabled]="checkCategory(uf)" [(ngModel)]="rec" >  
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label  class="control-label col-sm-4" for="status">Status: </label>
+    <div class="col-sm-4">
+    <input required pattern= "[a-zA-Z]*" ngModel name="status" id="status" #status="ngModel"  type="text" class="form-control" placeholder="Enter status" [(ngModel)]="stat">
+    <div class="alert alert-danger" *ngIf="status.touched && !status.valid">
+     <div *ngIf="status.errors.required">Status is required.</div>
+    <div *ngIf="status.errors.pattern">Status should be of alphabetical characters only.</div>
+    </div>
+  </div>
+  </div>
+
+  <div class="form-group">
+    <label  class="control-label col-sm-4" for="file">Upload File: </label>
+    <div class="col-sm-4">
+    <input ngModel id="file" name="file" type="file" class="form-control" [(ngModel)]="ufile">
+    </div>
+  </div>
   
-    <ng-template #nlist>
-    <h2 class="h2-style">No Vendors Found!!!!!</h2>
-  </ng-template>
+  <div class="form-group">
+    <label  class="control-label col-sm-4" for="comment">Comment: </label>
+    <div class="col-sm-4">
+    <textarea ngModel name="comment" id="comment" #comment="ngModel"  class="form-control" class="commentDesign" placeholder="Enter comment" [(ngModel)]="comm">
+    </textarea>
+    </div>
+  </div>
+  
+  <div class="form-group">        
+      <div class="col-sm-offset-4 col-sm-10">
+        <button type="submit" class="btn btn-primary" [disabled]="!uf.valid">Submit</button>
+        <button type="reset" class="btn btn-primary">Reset</button>
+      </div>
+    </div>
+  </form>
+   </modal-content>
+        <modal-footer>
+        </modal-footer>
+  </modal>
 
+  <modal #deleteModal (onOpen)="viewModal.close()">
+        <modal-header>
+             <h2 class="h2-style">DELETE VENDOR DETAILS</h2>
+        </modal-header>
+        <modal-content>
+            <form #df="ngForm" (ngSubmit)="deleteVendor(df)" class="form-horizontal">
+        <div class="form-group">
+      <label class="control-label col-sm-2"  for="name">Vendor Name: </label>
+      <div class="col-sm-4">
+          <input  required pattern= "[a-z * A-Z]*" ngModel name="name" id="name" #n="ngModel" type="text" class="form-control" placeholder="Enter vendor name" [(ngModel)]="vName">
+                   <div class="alert alert-danger" *ngIf="n.touched && !n.valid">
+                  <div *ngIf="n.errors.required">Vendor name is required.</div>
+                  <div *ngIf="n.errors.pattern">Vendor name should be of alphabetical characters only.</div>
+       </div>
+      </div>
+    </div>
+
+   <div class="form-group">        
+      <div class="col-sm-offset-4 col-sm-10">
+        <button type="submit" class="btn btn-primary" [disabled]="!df.valid">Delete</button>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+      </div>
+    </div>
+  </form>
+        </modal-content>
+        <modal-footer>
+        </modal-footer>
+    </modal>
+ 
+  
+    
   
   
   

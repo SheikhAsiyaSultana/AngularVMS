@@ -15,3 +15,24 @@ body {
 	margin-top: 10px;
 	margin-left: 50px;
 }
+.searchDesign {
+     width: 100%;
+    box-sizing:border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('D:/vendor1/src/assets/img/search.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+}
+.heading{
+	margin-left: 400px;
+    color: brown;
+    font-family: fantasy;
+}
+.selectStyle{
+	width: 170px;
+	height:35px;
+}

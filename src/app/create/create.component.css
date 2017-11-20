@@ -7,3 +7,11 @@
 	width: 355px;
 	height:35px;
 }
+.commentDesign{
+    width: 100%;
+    height: 100px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+    resize: none;/*Use the resize property to prevent textareas from being resized (disable the "grabber" in the bottom right corner)*/
+}

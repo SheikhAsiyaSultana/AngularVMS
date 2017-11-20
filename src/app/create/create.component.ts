@@ -1,24 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import {
-    Http,
-    Response,
-    Headers,
-    URLSearchParams,
-    RequestOptions
-} from '@angular/http';
 import { Vendor } from '../vendor';
+import { CreateService } from './create.service';
 
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  styleUrls: ['./create.component.css'],
+   providers: [CreateService]
 })
 export class CreateComponent implements OnInit {
 
   category:string[];
   selectedCategory:string="Others";
-  constructor(private http: Http) {
+  public statusCode: number;
+  constructor(private createService:CreateService) {
     this.category=["Food","General","HR","IT","Others"];
    }
 
@@ -32,13 +28,7 @@ export class CreateComponent implements OnInit {
        return true; 
    }
    registerVendor(f){
-   debugger;
-        let cpHeaders = new Headers({
-            'Content-Type': 'application/json'
-        });
-        let options = new RequestOptions({
-            headers: cpHeaders
-        });
+        
         //Creating new Vendor object by using name field(ngModel)
         let name = f.value.name;
         let category=f.value.category;
@@ -52,15 +42,15 @@ export class CreateComponent implements OnInit {
         let address2=f.value.address2;
         let files=f.value.file;     
         let comment=f.value.comment;
-      
-
+    
         let vendor= new Vendor(null, name, category,emailId,startDate,endDate,resourceCount,status,address1,number,address2,files,comment);    
         
-        this.http.post('http://localhost:8080/vendor/add', JSON.stringify(vendor), options)
-            .subscribe(response => {
-
-                console.log(response.json());
-            });
+       this.createService.registerVendor(vendor)
+            .subscribe(successCode => {
+            this.statusCode=successCode;
+            console.log( this.statusCode);
+            },
+            (err) => console.log(err));
             f.reset();
     }
 
